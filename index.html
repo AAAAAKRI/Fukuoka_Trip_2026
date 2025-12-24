@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>福岡 FUKUOKA 2026 | 家族賞櫻溫泉之旅 | Final Edition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'lux-bg': '#F9F8F6',      /* 米白底色 */
+                        'lux-gold': '#BFA37C',    /* 香檳金 */
+                        'lux-gold-light': '#E6DCCF',
+                        'lux-grey': '#5A5A5A',    /* 暖灰文字 */
+                        'lux-dark': '#2C2C2C',    /* 深灰標題 */
+                        'lux-accent': '#8C8475',  /* 大地色點綴 */
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                        serif: ['"Noto Serif TC"', 'serif'],
+                        display: ['"Playfair Display"', 'serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 20px 50px -10px rgba(0,0,0,0.08)',
+                        'card': '0 10px 30px -5px rgba(191, 163, 124, 0.15)',
+                        'ticket': '0 15px 35px -5px rgba(0,0,0,0.1)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F9F8F6;
+            color: #5A5A5A;
+            -webkit-font-smoothing: antialiased;
+        }
+        .vertical-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background-color: #E6DCCF;
+            transform: translateX(-50%);
+            z-index: 0;
+        }
+        .timeline-dot {
+            width: 12px;
+            height: 12px;
+            background-color: #F9F8F6;
+            border: 2px solid #BFA37C;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+        .group:hover .timeline-dot {
+            background-color: #BFA37C;
+            transform: translateX(-50%) scale(1.2);
+        }
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F9F8F6; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D4C5B0; 
+            border-radius: 3px;
+        }
+        .image-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 2px;
+        }
+        .image-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(191, 163, 124, 0.05); /* Gold tint overlay */
+            pointer-events: none;
+        }
+        .reveal-text {
+            animation: reveal 1s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        @keyframes reveal {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .info-label {
+            @apply text-lux-gold font-serif italic font-medium w-24 shrink-0;
+        }
+        /* Ticket Styles */
+        .ticket-notch {
+            width: 24px;
+            height: 24px;
+            background-color: #F9F8F6; /* Matches body background to look transparent */
+            border-radius: 50%;
+            position: absolute;
+            z-index: 10;
+        }
+        .ticket-perforation {
+            background-image: linear-gradient(to right, #BFA37C 33%, rgba(255,255,255,0) 0%);
+            background-position: bottom;
+            background-size: 8px 1px;
+            background-repeat: repeat-x;
+        }
+        .map-link:hover svg {
+            fill: #BFA37C;
+            transform: scale(1.1);
+        }
+        .map-link svg {
+            transition: all 0.2s ease;
+        }
+    </style>
+</head>
+<body class="smooth-scroll" id="home">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-[#F9F8F6]/95 backdrop-blur-md border-b border-[#E6DCCF] transition-all duration-300" id="navbar">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="font-display text-xl tracking-[0.2em] text-lux-dark font-medium cursor-pointer" onclick="window.scrollTo(0,0)">FUKUOKA <span class="text-[0.6rem] align-top text-lux-gold ml-1">EST. 2026</span></div>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex space-x-8 text-xs tracking-[0.2em] font-sans font-medium text-lux-grey items-center">
+                <a href="#home" class="hover:text-lux-gold transition-colors duration-300 text-lux-gold font-bold">HOME</a>
+                <a href="#day1" class="hover:text-lux-gold transition-colors duration-300">DAY 01</a>
+                <a href="#day2" class="hover:text-lux-gold transition-colors duration-300">DAY 02</a>
+                <a href="#day3" class="hover:text-lux-gold transition-colors duration-300">DAY 03</a>
+                <a href="#day4" class="hover:text-lux-gold transition-colors duration-300">DAY 04</a>
+                <a href="#day5" class="hover:text-lux-gold transition-colors duration-300">DAY 05</a>
+                <a href="#budget" class="px-4 py-2 border border-lux-gold text-lux-gold hover:bg-lux-gold hover:text-white transition-all duration-300 rounded-sm">BUDGET</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="lg:hidden text-lux-dark focus:outline-none" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-[#F9F8F6] border-b border-[#E6DCCF] p-6 text-center space-y-5 shadow-lg absolute w-full left-0 top-full">
+             <a href="#home" class="block text-sm font-serif tracking-widest text-lux-gold font-bold" onclick="document.getElementById('mobile-menu').classList.add('hidden')">HOME</a>
+             <a href="#day1" class="block text-sm font-serif tracking-widest text-lux-dark" onclick="document.getElementById('mobile-menu').classList.add('hidden')">DAY 01</a>
+             <a href="#day2" class="block text-sm font-serif tracking-widest text-lux-dark" onclick="document.getElementById('mobile-menu').classList.add('hidden')">DAY 02</a>
+             <a href="#day3" class="block text-sm font-serif tracking-widest text-lux-dark" onclick="document.getElementById('mobile-menu').classList.add('hidden')">DAY 03</a>
+             <a href="#day4" class="block text-sm font-serif tracking-widest text-lux-dark" onclick="document.getElementById('mobile-menu').classList.add('hidden')">DAY 04</a>
+             <a href="#day5" class="block text-sm font-serif tracking-widest text-lux-dark" onclick="document.getElementById('mobile-menu').classList.add('hidden')">DAY 05</a>
+             <a href="#budget" class="block text-sm font-serif tracking-widest text-lux-gold border-t border-lux-gold/20 pt-4 mt-2" onclick="document.getElementById('mobile-menu').classList.add('hidden')">BUDGET & COST</a>
+        </div>
+    </nav>
+
+    <!-- Floating Back to Top Button -->
+    <a href="#home" id="backToTop" class="fixed bottom-6 right-6 z-40 bg-lux-dark text-lux-gold p-3 rounded-full shadow-lg opacity-0 transition-opacity duration-300 hover:bg-lux-gold hover:text-white pointer-events-none">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+        </svg>
+    </a>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-24 pb-12 px-4">
+        <div class="absolute inset-0 z-0">
+            <!-- Cover Image -->
+            <img src="https://images.unsplash.com/photo-1522383225653-ed111181a951?q=80&w=2000&auto=format&fit=crop" alt="Cherry Blossom" class="w-full h-full object-cover opacity-90 scale-105 animate-[pulse_10s_ease-in-out_infinite_alternate]">
+            <div class="absolute inset-0 bg-gradient-to-b from-white/10 via-white/20 to-[#F9F8F6]"></div>
+        </div>
+        
+        <div class="relative z-10 text-center p-6 md:p-10 bg-white/80 backdrop-blur-md max-w-2xl w-full mx-auto shadow-card border border-white/50 reveal-text mb-10">
+            <p class="font-display text-lux-gold tracking-[0.4em] mb-4 text-[10px] md:text-xs uppercase font-bold">Premium Family Journey</p>
+            <h1 class="font-display text-4xl md:text-7xl text-lux-dark mb-6 leading-tight">
+                Sakura <span class="text-lux-gold">&</span><br><span class="italic font-serif text-3xl md:text-6xl text-lux-accent">Onsen</span>
+            </h1>
+            <div class="w-16 h-[1px] bg-lux-gold mx-auto mb-8"></div>
+            
+            <!-- EXQUISITE TICKET DESIGN START -->
+            <div class="relative bg-white shadow-ticket border border-lux-gold/20 w-full max-w-lg mx-auto rounded-sm overflow-hidden transform transition-transform hover:scale-[1.01] duration-500">
+                <!-- Top Gold Bar -->
+                <div class="h-1.5 bg-gradient-to-r from-lux-gold/60 via-lux-gold to-lux-gold/60 w-full"></div>
+
+                <!-- OUTBOUND -->
+                <div class="p-4 md:p-6 relative">
+                    <div class="flex justify-between items-center mb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="text-[9px] font-bold tracking-[0.2em] text-white bg-lux-gold px-2 py-0.5 rounded-sm uppercase">Outbound</span>
+                            <span class="text-xs font-serif text-lux-grey italic hidden md:inline">Mar 25, 2026</span>
+                            <span class="text-xs font-serif text-lux-grey italic md:hidden">03/25</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-lux-gold animate-pulse"></span>
+                            <span class="text-[9px] md:text-[10px] font-bold text-lux-dark tracking-wider uppercase">China Airlines</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="text-center w-12 md:w-16">
+                            <div class="text-2xl md:text-3xl font-display text-lux-dark">TPE</div>
+                            <div class="text-[9px] md:text-[10px] font-bold tracking-wider text-lux-grey bg-lux-bg/50 py-0.5 rounded">16:25</div>
+                        </div>
+                        <div class="flex-1 px-2 md:px-4 flex flex-col items-center">
+                            <span class="text-[10px] text-lux-gold tracking-widest font-bold">CI116</span>
+                            <div class="w-full flex items-center gap-1 md:gap-2">
+                                <div class="h-[1px] bg-lux-gold/30 flex-1"></div>
+                                <div class="text-lux-gold text-xs">✈</div>
+                                <div class="h-[1px] bg-lux-gold/30 flex-1"></div>
+                            </div>
+                            <span class="text-[9px] text-lux-grey/60 mt-0.5 tracking-wide">2h 10m</span>
+                        </div>
+                        <div class="text-center w-12 md:w-16">
+                            <div class="text-2xl md:text-3xl font-display text-lux-dark">FUK</div>
+                            <div class="text-[9px] md:text-[10px] font-bold tracking-wider text-lux-grey bg-lux-bg/50 py-0.5 rounded">19:35</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Perforation Line -->
+                <div class="relative h-4 flex items-center justify-center">
+                    <div class="ticket-notch -left-3 shadow-inner"></div>
+                    <div class="w-full border-t border-dashed border-lux-gold/30 mx-3"></div>
+                    <div class="ticket-notch -right-3 shadow-inner"></div>
+                </div>
+
+                <!-- INBOUND -->
+                <div class="p-4 md:p-6 relative bg-lux-bg/30">
+                    <div class="flex justify-between items-center mb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="text-[9px] font-bold tracking-[0.2em] text-lux-gold border border-lux-gold px-2 py-0.5 rounded-sm uppercase bg-white">Inbound</span>
+                            <span class="text-xs font-serif text-lux-grey italic hidden md:inline">Mar 29, 2026</span>
+                            <span class="text-xs font-serif text-lux-grey italic md:hidden">03/29</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="text-[9px] md:text-[10px] font-bold text-lux-dark tracking-wider uppercase">China Airlines</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="text-center w-12 md:w-16">
+                            <div class="text-2xl md:text-3xl font-display text-lux-dark">FUK</div>
+                            <div class="text-[9px] md:text-[10px] font-bold tracking-wider text-lux-grey bg-lux-bg/50 py-0.5 rounded">21:00</div>
+                        </div>
+                        <div class="flex-1 px-2 md:px-4 flex flex-col items-center">
+                            <span class="text-[10px] text-lux-gold tracking-widest font-bold">CI117</span>
+                            <div class="w-full flex items-center gap-1 md:gap-2">
+                                <div class="h-[1px] bg-lux-gold/30 flex-1"></div>
+                                <div class="text-lux-gold text-xs rotate-180">✈</div>
+                                <div class="h-[1px] bg-lux-gold/30 flex-1"></div>
+                            </div>
+                            <span class="text-[9px] text-lux-grey/60 mt-0.5 tracking-wide">2h 30m</span>
+                        </div>
+                        <div class="text-center w-12 md:w-16">
+                            <div class="text-2xl md:text-3xl font-display text-lux-dark">TPE</div>
+                            <div class="text-[9px] md:text-[10px] font-bold tracking-wider text-lux-grey bg-lux-bg/50 py-0.5 rounded">22:30</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Bottom Bar (Barcode Simulation) -->
+                <div class="bg-white p-3 flex justify-between items-end border-t border-lux-gold/10 opacity-70">
+                    <div class="text-[9px] text-lux-gold/60 font-mono tracking-tighter">BOARDING PASS / ECONOMY</div>
+                    <div class="h-3 md:h-4 w-20 md:w-24 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMDAgMTAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxyZWN0IHdpZHRoPSIyIiBoZWlnaHQ9IjEwIiBmaWxsPSIjQkZBMzdDIiBvcGFjaXR5PSIwLjUiLz48cmVjdCB4PSI0IiB3aWR0aD0iMSIgaGVpZ2h0PSIxMCIgZmlsbD0iI0JGQTM3QyIgb3BhY2l0eT0iMC41Ii8+PHJlY3QgeD0iNyIgd2lkdGg9IjMiIGhlaWdodD0iMTAiIGZpbGw9IiNCRkEzN0MiIG9wYWNpdHk9IjAuNSIvPjxyZWN0IHg9IjEyIiB3aWR0aD0iMSIgaGVpZ2h0PSIxMCIgZmlsbD0iI0JGQTM3QyIgb3BhY2l0eT0iMC41Ii8+PC9zdmc+')] opacity-50"></div>
+                </div>
+            </div>
+            <!-- EXQUISITE TICKET DESIGN END -->
+
+            <div class="flex flex-col md:flex-row justify-center gap-6 md:gap-12 text-[10px] font-sans tracking-[0.2em] text-lux-dark uppercase mt-10">
+                <div>
+                    <span class="block text-lux-gold mb-2 font-bold">Total Days</span>
+                    5 Days 4 Nights
+                </div>
+                <div>
+                    <span class="block text-lux-gold mb-2 font-bold">Guests</span>
+                    4 Adults
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 animate-bounce text-lux-gold/50">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+            </svg>
+        </div>
+    </header>
+
+    <!-- Main Itinerary -->
+    <main class="max-w-6xl mx-auto px-4 py-16 md:py-24">
+        
+        <!-- Intro Text -->
+        <div class="text-center mb-20 md:mb-32 max-w-2xl mx-auto reveal-text px-4" style="animation-delay: 0.2s;">
+            <h2 class="font-display text-3xl md:text-4xl text-lux-dark mb-6 md:mb-8">A Journey of Sakura & Spirits</h2>
+            <p class="font-serif text-lux-grey leading-loose text-base md:text-lg font-light">
+                這是一趟以「櫻花與美酒」為題的溫暖旅程。<br>
+                涵蓋了九州的自然近郊秘境與繁華都市購物，<br>
+                在粉色花瓣紛飛的季節裡，為家人譜寫一段優雅難忘的回憶。
+            </p>
+        </div>
+
+        <div class="relative">
+            <!-- Vertical Timeline Line -->
+            <div class="hidden md:block vertical-line"></div>
+
+            <!-- DAY 1 -->
+            <section id="day1" class="mb-24 md:mb-32 relative scroll-mt-32 group">
+                <div class="hidden md:block timeline-dot top-12"></div>
+                
+                <div class="grid md:grid-cols-2 gap-8 md:gap-16 items-start">
+                    <!-- Left: Content -->
+                    <div class="md:text-right order-2 md:order-1 pt-4 md:pt-8 relative px-2">
+                        <span class="text-lux-gold font-display text-[6rem] md:text-[8rem] opacity-10 absolute -top-16 left-4 md:left-auto md:right-10 z-0 leading-none">01</span>
+                        <h3 class="font-display text-2xl md:text-3xl text-lux-dark mb-1 relative z-10">Arrival & Tenjin</h3>
+                        <p class="text-lux-gold font-sans font-bold tracking-widest mb-3 relative z-10 text-xs md:text-sm">2026.03.25 (Wed)</p>
+                        <p class="font-serif text-lux-accent italic mb-8 tracking-wide relative z-10 text-sm md:text-base">抵達福岡、天神之夜</p>
+                        
+                        <div class="space-y-6 md:space-y-8 relative z-10">
+                            <div class="group/item hover:translate-x-[-5px] transition-transform duration-300">
+                                <div class="text-xs font-bold tracking-widest text-lux-gold mb-2">19:35</div>
+                                <div class="text-lux-dark font-medium text-base md:text-lg flex items-center justify-end gap-1">
+                                    抵達福岡機場
+                                    <a href="https://www.google.com/maps/search/?api=1&query=Fukuoka+Airport" target="_blank" class="map-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-lux-gold/80"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg></a>
+                                </div>
+                                <div class="text-sm text-lux-grey mt-1 font-light">搭乘計程車直達飯店，開啟舒適旅程。</div>
+                            </div>
+                            <div class="group/item hover:translate-x-[-5px] transition-transform duration-300">
+                                <div class="text-xs font-bold tracking-widest text-lux-gold mb-2">21:00</div>
+                                <div class="text-lux-dark font-medium text-base md:text-lg flex items-center justify-end gap-1">
+                                    晚餐：屋台與在地體驗
+                                    <a href="https://www.google.com/maps/search/?api=1&query=Nakasu+Yatai" target="_blank" class="map-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-lux-gold/80"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg></a>
+                                </div>
+                                <div class="text-sm text-lux-grey mt-1 font-light leading-relaxed">
+                                    福岡著名的屋台文化 (路邊攤)，主要集中在中洲川端與天神。<br>提供熱騰騰的關東煮、博多拉麵與炭火串燒，充滿人情味。
+                                </div>
+                            </div>
+                            <div class="group/item hover:translate-x-[-5px] transition-transform duration-300">
+                                <div class="text-xs font-bold tracking-widest text-lux-gold mb-2">22:30</div>
+                                <div class="text-lux-dark font-medium text-base md:text-lg flex items-center gap-2 justify-end">
+                                    購物: ドン・キホーテ
+                                    <span class="bg-lux-gold/20 text-lux-dark text-[10px] px-2 py-0.5 rounded-full">Highlight</span>
+                                    <a href="https://www.google.com/maps/search/?api=1&query=Don+Quijote+Fukuoka+Tenjin" target="_blank" class="map-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-lux-gold/80"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg></a>
+                                </div>
+                                <div class="text-sm text-lux-grey mt-1 font-light">
+                                    夜間採買 (體力允許的話) 步行10分鐘內即達。<br>提前補給，為旅途揭開序幕。
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Info Card D1 -->
+                        <div class="mt-8 md:mt-12 bg-white p-6 md:p-8 shadow-card border-l-4 border-lux-gold md:ml-auto md:mr-0 max-w-sm transition-shadow duration-500 hover:shadow-lg relative z-10">
+                            <h4 class="font-display text-lux-dark mb-4 tracking-widest text-sm md:text-base">DAILY INFO</h4>
+                            <ul class="text-sm space-y-3">
+                                <li class="flex border-b border-gray-100 pb-3 justify-between">
+                                    <span class="info-label">Stay</span>
+                                    <span class="text-lux-dark font-medium text-right flex items-center gap-1">
+                                        西鐵格蘭飯店
+                                        <a href="https://www.google.com/maps/search/?api=1&query=Nishitetsu+Grand+Hotel+Fukuoka" target="_blank" class="map-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3 text-lux-gold/80"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg></a>
+                                    </span>
+                                </li>
+                                <li class="flex border-b border-gray-100 pb-3 justify-between">
+                                    <span class="info-label">Dinner</span>
+                                    <span class="text-lux-dark font-medium text-right">屋台 或 水炊雞</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Right: Visual D1 -->
+                    <div class="order-1 md:order-2 relative px-2 md:px-0">
+                        <div class="image-container aspect-[3/4] shadow-soft bg-gray-100">
+                            <img src="https://static.japan-food.guide/uploads/article/cover_image/000/000/610/1d1676038db1716d69b3c67898a488379821f724092b6aea4cb03d96924f5d63/eye_catch_29304490_s.jpg?1759897953" alt="Fukuoka Yatai Night" class="w-full h-full object-cover transition duration-[1.5s] group-hover:scale-105">
+                        </div>
+                        <div class="absolute -bottom-6 -left-6 md:-bottom-8 md:-left-8 bg-white p-4 md:p-6 shadow-card max-w-[200px] md:max-w-[240px] hidden md:block border border-lux-gold/20">
+                            <p class="font-serif text-xs text-lux-grey leading-relaxed italic">"福岡的夜，從熱氣騰騰的屋台拉麵開始。"</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DAY 2 -->
+            <section id="day2" class="mb-24 md:mb-32 relative scroll-mt-32 group">
+                <div class="hidden md:block timeline-dot top-12"></div>
+                
+                <div class="grid md:grid-cols-2 gap-8 md:gap-16 items-start">
+                    <!-- Left: Visual D2 -->
+                    <div class="relative px-2 md:px-0">
+                        <div class="image-container aspect-[3/4] shadow-soft bg-gray-100">
+                            <img src="https://www.crossroadfukuoka.jp/storage/tourism_attractions/12901/responsive_images/RuetuHBSB6i1aMmtuwQgCIz2R9fQrN9hYZsHuOgp__1756_1171.jpg" alt="Hita River Boat" class="w-full h-full object-cover transition duration-[1.5s] group-hover:scale-105">
+                        </div>
+                        <div class="absolute top-4 right-4 md:top-6 md:right-6 bg-white/90 backdrop-blur px-3 py-1.5 md:px-4 md:py-2 text-[9px] md:text-[10px] tracking-[0.2em] font-bold text-lux-dark shadow-sm">
+                            DRIVE & RELAX
+                        </div>
+                        <!-- Hita Intro Box -->
+                        <div class="absolute -bottom-8 right-8 bg-lux-dark p-6 shadow-card max-w-[260px] hidden md:block border border-lux-gold/20">
+                            <p class="font-serif text-xs text-lux-gold mb-2 uppercase tracking-widest">About Hita</p>
+                            <p class="font-sans text-xs text-gray-300 leading-relaxed">
+                                位於大分縣西部，以「水鄉」聞名。這裡不僅有優質的溫泉，更因水質清澈而孕育出頂級的釀酒文化。
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Right: Content D2 -->
+                    <div class="pt-4 md:pt-8 relative px-2">
+                        <span class="text-lux-gold font-display text-[6rem] md:text-[8rem] opacity-10 absolute -top-16 right-4 md:left-4 md:right-auto z-0 leading-none">02</span>
+                        <h3 class="font-display text-2xl md:text-3xl text-lux-dark mb-1 relative z-10">Yanagawa & Hita</h3>
+                        <p class="text-lux-gold font-sans font-bold tracking-widest mb-3 relative z-10 text-xs md:text-sm">2026.03.26 (Thu)</p>
+                        <p class="font-serif text-lux-accent italic mb-8 tracking-wide relative z-10 text-sm md:text-base">水鄉遊船、啤酒狂歡與屋形船</p>
+                        
+                        <div class="space-y-6 md:space-y-8 relative z-10">
+                            <div class="bg-lux-bg/50 p-3 rounded-sm border border-lux-gold/20 mb-4 inline-block">
+                                <p class="text-xs text-lux-dark font-medium"><span class="text-lux-gold">💡 行程提示：</span> 本日開始租車，建議 08:30 準時出發。</p>
+                            </div>
+
+                            <div class="group/item flex gap-4 md:gap-6 hover:translate-x-[5px] transition-transform duration-300">
+                                <div class="text-xs font-bold tracking-widest text-lux-gold pt-1.5 w-10 md:w-12">10:30</div>
+                                <div>
+                                    <div class="text-lux-dark font-medium text-base md:text-lg flex items-center gap-1">
+                                        柳川遊船
+                                        <a href="https://www.google.com/maps/search/?api=1&query=Yanagawa+River+Cruising+Shogetsu" target="_blank" class="map-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-lux-gold/80"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg></a>
+                                    </div>
+                                    <div class="text-sm text-lux-grey font-light">聆聽船伕民謠，享受30分鐘水上散策。</div>
+                                </div>
+                            </div>
+                            <div class="group/item flex gap-4 md:gap-6 bg-white p-4 md:p-6 border-l-2 border-lux-gold shadow-sm -mx-4 md:-mx-6 my-4">
+                                <div class="text-xs font-bold tracking-widest text-lux-dark pt-1.5 w-10 md:w-12">15:00</div>
+                                <div>
+                                    <div class="text-lux-dark font-medium text-base md:text-lg flex items-center gap-3">
+                                        SAPPORO 啤酒工廠
+                                        <span class="text-[8px] md:text-[9px] bg-lux-dark text-white px-1.5 py-0.5 md:px-2 md:py-1 tracking-wider uppercase rounded-sm">Highlight</span>
+                                        <a href="https://www.google.com/maps/search/?api=1&query=Sapporo+Beer+Hita+Brewery" target="_blank" class="map-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-lux-gold/80"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg></a>
+                                    </div>
+                                    <div class="text-sm text-lux-grey mt-2 leading-relaxed">
+                                        Check-in 後搭計程車前往。<br>
+                                        <span class="text-lux-gold font-medium">全家暢飲黑標生啤，駕駛也能盡情享受！</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="group/item flex gap-4 md:gap-6 hover:translate-x-[5px] transition-transform duration-300">
+                                <div class="text-xs font-bold tracking-widest text-lux-gold pt-1.5 w-10 md:w-12">18:30</div>
+                                <div>
+                                    <div class="text-lux-dark font-medium text-base md:text-lg flex items-center gap-2">
+                                        晚餐：屋形船宴席
+                                        <span class="bg-lux-gold/20 text-lux-dark text-[9px] px-2 py-0.5 rounded-full uppercase tracking-wider">Highlight</span>
+                                    </div>
+                                    <div class="text-sm text-lux-grey font-light mt-1">三隈川上的夢幻晚餐，近距離欣賞燈火倒影。</div>
+                                </div>
+                            </div>
+                        </div>
+
+                         <!-- Info Card D2 -->
+                         <div class="mt-8 md:mt-12 bg-white p-6 md:p-8 shadow-card border-l-4 border-lux-gold max-w-sm transition-shadow duration-500 hover:shadow-lg relative z-10">
+                            <h4 class="font-display text-lux-dark mb-4 tracking-widest text-sm md:text-base">DAILY INFO</h4>
+                            <ul class="text-sm space-y-3">
+                                <li class="flex border-b border-gray-100 pb-3 justify-between">
+                                    <span class="info-label">Stay</span>
+                                    <span class="text-lux-dark font-medium text-right flex items-center gap-1">
+                                        Mikuma Hotel
+                                        <a href="https://www.google.com/maps/search/?api=1&query=Mikuma+Hotel+Hita" target="_blank" class="map-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3 text-lux-gold/80"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg></a>
+                                    </span>
+                                </li>
+                                <li class="flex border-b border-gray-100 pb-3 justify-between">
+                                    <span class="info-label">Lunch</span>
+                                    <span class="text-lux-dark font-medium text-right flex items-center gap-1">
+                                        元祖本吉屋 鰻魚飯
+                                        <a href="https://www.google.com/maps/search/?api=1&query=Motoyoshiya+Yanagawa" target="_blank" class="map-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3 text-lux-gold/80"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg></a>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+             <!-- DAY 3 -->
+             <section id="day3" class="mb-24 md:mb-32 relative scroll-mt-32 group">
+                <div class="hidden md:block timeline-dot top-12"></div>
+                
+                <div class="grid md:grid-cols-2 gap-8 md:gap-16 items-start">
+                    <!-- Left: Content D3 -->
+                    <div class="md:text-right order-2 md:order-1 pt-4 md:pt-8 relative px-2">
+                        <span class="text-lux-gold font-display text-[6rem] md:text-[8rem] opacity-10 absolute -top-16 left-4 md:left-auto md:right-10 z-0 leading-none">03</span>
+                        <h3 class="font-display text-2xl md:text-3xl text-lux-dark mb-1 relative z-10">Yufuin & Dazaifu</h3>
+                        <p class="text-lux-gold font-sans font-bold tracking-widest mb-3 relative z-10 text-xs md:text-sm">2026.03.27 (Fri)</p>
+                        <p class="font-serif text-lux-accent italic mb-8 tracking-wide relative z-10 text-sm md:text-base">豆田晨光、豐後牛與太宰府天滿宮</p>
+                        
+                        <div class="space-y-6 md:space-y-8 relative z-10">
+                            <div class="group/item hover:translate-x-[-5px] transition-transform duration-300">
+                                <div class="text-xs font-bold tracking-widest text-lux-gold mb-2">09:00</div>
+                                <div class="text-lux-dark font-medium text-base md:text-lg flex items-center justify-end gap-1">
+                                    豆田町晨間散步
+                                    <a href="https://www.google.com/maps/search/?api=1&query=Mameda+Town+Hita" target="_blank" class="map-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-lux-gold/80"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg></a>
+                                </div>
+                                <div class="text-sm text-lux-grey mt-1 font-light">薰長酒造與無人的老街。</div>
+                            </div>
+                            <div class="group/item hover:translate-x-[-5px] transition-transform duration-300">
+                                <div class="text-xs font-bold tracking-widest text-lux-gold mb-2">11:30</div>
+                                <div class="text-lux-dark font-medium text-base md:text-lg flex items-center justify-end gap-1">
+                                    由布院 金鱗湖 & 湯之坪街道
+                                    <a href="https://www.google.com/maps/search/?api=1&query=Kinrin+Lake+Yufuin" target="_blank" class="map-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-lux-gold/80"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg></a>
+                                </div>
+                                <div class="text-sm text-lux-grey mt-1 font-light">漫步湖畔與童話街道，感受山城魅力。</div>
+                            </div>
+                            <div class="group/item hover:translate-x-[-5px] transition-transform duration-300">
+                                <div class="text-xs font-bold tracking-widest text-lux-gold mb-2">14:40</div>
+                                <div class="text-lux-dark font-medium text-base md:text-lg flex items-center justify-end gap-1">
+                                    如意輪寺 (青蛙寺)
+                                    <a href="https://www.google.com/maps/search/?api=1&query=Nyoirinji+Frog+Temple" target="_blank" class="map-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-lux-gold/80"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg></a>
+                                </div>
+                                <div class="text-sm text-lux-grey mt-1 font-light">
+                                    祈求「平安歸來」的自駕聖地，境內充滿青蛙石像與美麗庭園。
+                                </div>
+                            </div>
+                            <div class="group/item hover:translate-x-[-5px] transition-transform duration-300">
+                                <div class="text-xs font-bold tracking-widest text-lux-gold mb-2">16:00</div>
+                                <div class="text-lux-dark font-medium text-base md:text-lg flex items-center gap-2 justify-end flex-wrap">
+                                    寶滿宮 竈門神社
+                                    <a href="https://www.google.com/maps/search/?api=1&query=Kamado+Shrine" target="_blank" class="map-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-lux-gold/80"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg></a>
+                                    & 太宰府天滿宮
+                                    <a href="https://www.google.com/maps/search/?api=1&query=Dazaifu+Tenmangu" target="_blank" class="map-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-lux-gold/80"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg></a>
+                                </div>
+                                <div class="text-sm text-lux-grey mt-1 font-light">
+                                    現代設計與櫻花交織的秘境，接著參拜學問之神與品嚐梅枝餅。
+                                </div>
+                            </div>
+                        </div>
+
+                         <!-- Info Card D3 -->
+                         <div class="mt-8 md:mt-12 bg-white p-6 md:p-8 shadow-card border-l-4 border-lux-gold md:ml-auto md:mr-0 max-w-sm transition-shadow duration-500 hover:shadow-lg relative z-10">
+                            <h4 class="font-display text-lux-dark mb-4 tracking-widest text-sm md:text-base">DAILY INFO</h4>
+                            <ul class="text-sm space-y-3">
+                                <li class="flex border-b border-gray-100 pb-3 justify-between">
+                                    <span class="info-label">Stay</span>
+                                    <span class="text-lux-dark font-medium text-right flex items-center gap-1">
+                                        西鐵格蘭飯店
+                                        <a href="https://www.google.com/maps/search/?api=1&query=Nishitetsu+Grand+Hotel+Fukuoka" target="_blank" class="map-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3 text-lux-gold/80"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg></a>
+                                    </span>
+                                </li>
+                                <li class="flex border-b border-gray-100 pb-3 justify-between">
+                                    <span class="info-label">Lunch</span>
+                                    <span class="text-lux-dark font-medium text-right flex items-center gap-1">
+                                        由布まぶし 心
+                                        <a href="https://www.google.com/maps/search/?api=1&query=Yufu+Mabushi+Shin+Kinrin+Lake" target="_blank" class="map-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3 text-lux-gold/80"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg></a>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Right: Visual D3 -->
+                    <div class="order-1 md:order-2 relative px-2 md:px-0">
+                        <div class="image-container aspect-[3/4] shadow-soft bg-gray-100">
+                            <img src="https://img.activityjapan.com/wi/yufuin-tourist-spot3.jpg" alt="Yufuin Landscape" class="w-full h-full object-cover transition duration-[1.5s] group-hover:scale-105">
+                        </div>
+                        <div class="absolute -bottom-6 -left-6 md:-bottom-8 md:-left-8 bg-white p-4 md:p-6 shadow-card max-w-[200px] md:max-w-[240px] hidden md:block border border-lux-gold/20">
+                            <p class="font-serif text-xs text-lux-grey leading-relaxed italic">"神域裡的櫻花，在夕陽下最美。"</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DAY 4 -->
+            <section id="day4" class="mb-24 md:mb-32 relative scroll-mt-32 group">
+                <div class="hidden md:block timeline-dot top-12"></div>
+                
+                <div class="grid md:grid-cols-2 gap-8 md:gap-16 items-start">
+                    <!-- Left: Visual D4 -->
+                    <div class="relative px-2 md:px-0">
+                        <div class="image-container aspect-[3/4] shadow-soft bg-gray-100">
+                            <img src="https://sugoi-jp.com/uploads/article/68bc2223acfbea4b61d75e837900122a.jpg" alt="Maizuru Park Sakura Picnic" class="w-full h-full object-cover transition duration-[1.5s] group-hover:scale-105">
+                        </div>
+                    </div>
+
+                    <!-- Right: Content D4 -->
+                    <div class="pt-4 md:pt-8 relative px-2">
+                        <span class="text-lux-gold font-display text-[6rem] md:text-[8rem] opacity-10 absolute -top-16 right-4 md:left-4 md:right-auto z-0 leading-none">04</span>
+                        <h3 class="font-display text-2xl md:text-3xl text-lux-dark mb-1 relative z-10">Sakura & Shopping</h3>
+                        <p class="text-lux-gold font-sans font-bold tracking-widest mb-3 relative z-10 text-xs md:text-sm">2026.03.28 (Sat)</p>
+                        <p class="font-serif text-lux-accent italic mb-8 tracking-wide relative z-10 text-sm md:text-base">晨間賞櫻 與 都市購物時光</p>
+                        
+                        <div class="space-y-6 md:space-y-8 relative z-10">
+                            <div class="group/item flex gap-4 md:gap-6 hover:translate-x-[5px] transition-transform duration-300">
+                                <div class="text-xs font-bold tracking-widest text-lux-gold pt-1.5 w-10 md:w-12">Morning</div>
+                                <div>
+                                    <div class="text-lux-dark font-medium text-base md:text-lg flex items-center gap-1">
+                                        舞鶴公園野餐賞櫻
+                                        <a href="https://www.google.com/maps/search/?api=1&query=Maizuru+Park+Fukuoka" target="_blank" class="map-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-lux-gold/80"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg></a>
+                                    </div>
+                                    <div class="text-sm text-lux-grey font-light mt-1">福岡城跡櫻花樹下，享受悠閒時光。</div>
+                                </div>
+                            </div>
+
+                            <div class="group/item flex gap-4 md:gap-6 bg-white p-4 md:p-6 border-l-2 border-lux-gold shadow-sm -mx-4 md:-mx-6 my-4">
+                                <div class="text-xs font-bold tracking-widest text-lux-dark pt-1.5 w-10 md:w-12">12:30</div>
+                                <div>
+                                    <div class="text-lux-dark font-medium text-base md:text-lg flex items-center gap-3">
+                                        午餐：燒肉處 石原牛
+                                        <span class="text-[8px] md:text-[9px] bg-lux-dark text-white px-1.5 py-0.5 md:px-2 md:py-1 tracking-wider uppercase rounded-sm">Must Eat</span>
+                                        <a href="https://www.google.com/maps/search/?api=1&query=Yakiniku+Ishihara+Gyu" target="_blank" class="map-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-lux-gold/80"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg></a>
+                                    </div>
+                                    <div class="text-sm text-lux-grey mt-2 leading-relaxed">
+                                        旅程的完美句點，高CP值黑毛和牛商業午餐。
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="group/item flex gap-4 md:gap-6 hover:translate-x-[5px] transition-transform duration-300">
+                                <div class="text-xs font-bold tracking-widest text-lux-gold pt-1.5 w-10 md:w-12">14:30</div>
+                                <div>
+                                    <div class="text-lux-dark font-medium text-base md:text-lg flex items-center gap-2">
+                                        櫛田神社 & 川端通商店街
+                                        <a href="https://www.google.com/maps/search/?api=1&query=Kushida+Shrine+Fukuoka" target="_blank" class="map-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-lux-gold/80"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg></a>
+                                    </div>
+                                    <div class="text-sm text-lux-grey font-light mt-1">參拜博多總鎮守，漫步傳統商店街。</div>
+                                </div>
+                            </div>
+                            
+                            <div class="group/item flex gap-4 md:gap-6 hover:translate-x-[5px] transition-transform duration-300">
+                                <div class="text-xs font-bold tracking-widest text-lux-gold pt-1.5 w-10 md:w-12">16:30</div>
+                                <div class="w-full">
+                                    <div class="text-lux-dark font-medium text-base md:text-lg mb-2">大購物時間 (Shopping Spree)</div>
+                                    <div class="bg-white p-4 border border-lux-gold/20 rounded-sm shadow-sm space-y-3">
+                                        <div class="flex items-start gap-2">
+                                            <span class="text-lux-gold text-xs mt-0.5">01</span>
+                                            <p class="text-sm text-lux-grey font-light">
+                                                <strong class="text-lux-dark font-medium flex items-center gap-1">
+                                                    福岡 PARCO
+                                                    <a href="https://www.google.com/maps/search/?api=1&query=Fukuoka+PARCO" target="_blank" class="map-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3 text-lux-gold/80"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg></a>
+                                                </strong>
+                                                <br>潮流服飾、動漫周邊 (One Piece/吉卜力)。
+                                            </p>
+                                        </div>
+                                        <div class="flex items-start gap-2 pt-2 border-t border-dashed border-gray-100">
+                                            <span class="text-lux-gold text-xs mt-0.5">02</span>
+                                            <div class="text-sm text-lux-grey font-light w-full">
+                                                <strong class="text-lux-dark font-medium mb-1 block">天神購物熱點 (Shopping Spots)</strong>
+                                                <ul class="space-y-1 pl-1">
+                                                    <li class="flex items-center gap-2">
+                                                        <span>• 大國藥妝 (天神南店)</span>
+                                                        <a href="https://www.google.com/maps/search/?api=1&query=Daikoku+Drug+Tenjin+Minami" target="_blank" class="map-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3 text-lux-gold/80"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg></a>
+                                                    </li>
+                                                    <li class="flex items-center gap-2">
+                                                        <span>• 新天町商店街</span>
+                                                        <a href="https://www.google.com/maps/search/?api=1&query=Shintencho+Shopping+Arcade" target="_blank" class="map-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3 text-lux-gold/80"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg></a>
+                                                    </li>
+                                                    <li class="flex items-center gap-2">
+                                                        <span>• 天神地下街</span>
+                                                        <a href="https://www.google.com/maps/search/?api=1&query=Tenjin+Underground+Shopping+Mall" target="_blank" class="map-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3 text-lux-gold/80"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="group/item flex gap-4 md:gap-6 hover:translate-x-[5px] transition-transform duration-300">
+                                <div class="text-xs font-bold tracking-widest text-lux-gold pt-1.5 w-10 md:w-12">19:00</div>
+                                <div>
+                                    <div class="text-lux-dark font-medium text-base md:text-lg">晚餐：極致選擇</div>
+                                    <div class="text-sm text-lux-grey mt-2 space-y-2 font-light">
+                                        <p class="flex items-center gap-1">
+                                            1. <span class="font-medium text-lux-dark">坐離宮</span>：高雅山藥泥鍋
+                                            <a href="https://www.google.com/maps/search/?api=1&query=Zarigyu+Hakata" target="_blank" class="map-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3 text-lux-gold/80"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg></a>
+                                        </p>
+                                        <p class="flex items-center gap-1">
+                                            2. <span class="font-medium text-lux-dark">河太郎/磯貝</span>：現殺活烏賊生魚片
+                                            <a href="https://www.google.com/maps/search/?api=1&query=Kawatarou+Nakasu" target="_blank" class="map-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3 text-lux-gold/80"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg></a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Info Card D4 -->
+                        <div class="mt-8 md:mt-12 bg-white p-6 md:p-8 shadow-card border-l-4 border-lux-gold max-w-sm transition-shadow duration-500 hover:shadow-lg relative z-10">
+                            <h4 class="font-display text-lux-dark mb-4 tracking-widest text-sm md:text-base">DAILY INFO</h4>
+                            <ul class="text-sm space-y-3">
+                                <li class="flex border-b border-gray-100 pb-3 justify-between">
+                                    <span class="info-label">Stay</span>
+                                    <span class="text-lux-dark font-medium text-right flex items-center gap-1">
+                                        西鐵格蘭飯店
+                                        <a href="https://www.google.com/maps/search/?api=1&query=Nishitetsu+Grand+Hotel+Fukuoka" target="_blank" class="map-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3 text-lux-gold/80"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg></a>
+                                    </span>
+                                </li>
+                                <li class="flex border-b border-gray-100 pb-3 justify-between">
+                                    <span class="info-label">Lunch</span>
+                                    <span class="text-lux-dark font-medium text-right flex items-center gap-1">
+                                        燒肉處 石原牛
+                                        <a href="https://www.google.com/maps/search/?api=1&query=Yakiniku+Ishihara+Gyu" target="_blank" class="map-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3 text-lux-gold/80"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg></a>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+             <!-- DAY 5 -->
+             <section id="day5" class="mb-24 md:mb-32 relative scroll-mt-32 group">
+                <div class="hidden md:block timeline-dot top-12"></div>
+                
+                <div class="grid md:grid-cols-2 gap-8 md:gap-16 items-start">
+                    <!-- Left: Content D5 -->
+                    <div class="md:text-right order-2 md:order-1 pt-4 md:pt-8 relative px-2">
+                        <span class="text-lux-gold font-display text-[6rem] md:text-[8rem] opacity-10 absolute -top-16 left-4 md:left-auto md:right-10 z-0 leading-none">05</span>
+                        <h3 class="font-display text-2xl md:text-3xl text-lux-dark mb-1 relative z-10">Last Moments</h3>
+                        <p class="text-lux-gold font-sans font-bold tracking-widest mb-3 relative z-10 text-xs md:text-sm">2026.03.29 (Sun)</p>
+                        <p class="font-serif text-lux-accent italic mb-8 tracking-wide relative z-10 text-sm md:text-base">市場巡禮與歸途</p>
+                        
+                        <div class="space-y-6 md:space-y-8 relative z-10">
+                            <div class="group/item hover:translate-x-[-5px] transition-transform duration-300">
+                                <div class="text-xs font-bold tracking-widest text-lux-gold pt-1.5 w-10 md:w-12">09:30</div>
+                                <div>
+                                    <div class="text-lux-dark font-medium text-base md:text-lg flex items-center justify-end gap-1">
+                                        柳橋連合市場
+                                        <a href="https://www.google.com/maps/search/?api=1&query=Yanagibashi+Rengo+Market" target="_blank" class="map-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-lux-gold/80"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg></a>
+                                    </div>
+                                    <div class="text-sm text-lux-grey font-light leading-relaxed">
+                                        有「博多台所」的美譽。<br>
+                                        在此享用在地早餐，<br>
+                                        品嚐現炸魚板與明太子法國麵包。
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="group/item hover:translate-x-[-5px] transition-transform duration-300">
+                                <div class="text-xs font-bold tracking-widest text-lux-gold pt-1.5 w-10 md:w-12">10:30</div>
+                                <div>
+                                    <div class="text-lux-dark font-medium text-base md:text-lg flex items-center justify-end gap-1">
+                                        住吉神社
+                                        <a href="https://www.google.com/maps/search/?api=1&query=Sumiyoshi+Shrine+Fukuoka" target="_blank" class="map-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-lux-gold/80"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg></a>
+                                    </div>
+                                    <div class="text-sm text-lux-grey font-light">
+                                        日本三大住吉之一。<br>境內古木參天，祈求航海與交通安全。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="group/item hover:translate-x-[-5px] transition-transform duration-300">
+                                <div class="text-xs font-bold tracking-widest text-lux-gold mb-2">12:30</div>
+                                <div class="text-lux-dark font-medium text-xl md:text-2xl font-display flex items-center justify-end gap-1">
+                                    午餐：博多拉麵
+                                    <a href="https://www.google.com/maps/search/?api=1&query=Ichiran+Main+Office" target="_blank" class="map-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-lux-gold/80"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg></a>
+                                </div>
+                                <div class="text-sm text-lux-grey mt-2">
+                                    福岡靈魂美食。<br>推薦：一蘭 本社總本店 (獨特個室) 或 Shin-Shin。
+                                </div>
+                            </div>
+                            <div class="group/item hover:translate-x-[-5px] transition-transform duration-300">
+                                <div class="text-xs font-bold tracking-widest text-lux-gold mb-2">17:30</div>
+                                <div class="text-lux-dark font-medium text-base md:text-lg flex items-center justify-end gap-1">
+                                    前往機場
+                                    <a href="https://www.google.com/maps/search/?api=1&query=Fukuoka+Airport+International+Terminal" target="_blank" class="map-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-lux-gold/80"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg></a>
+                                </div>
+                                <div class="text-sm text-lux-grey mt-1 font-light">搭乘計程車直達國際線。</div>
+                            </div>
+                        </div>
+
+                        <!-- Info Card D5 -->
+                        <div class="mt-8 md:mt-12 bg-white p-6 md:p-8 shadow-card border-l-4 border-lux-gold md:ml-auto md:mr-0 max-w-sm transition-shadow duration-500 hover:shadow-lg relative z-10">
+                            <h4 class="font-display text-lux-dark mb-4 tracking-widest text-sm md:text-base">DAILY INFO</h4>
+                            <ul class="text-sm space-y-3">
+                                <li class="flex border-b border-gray-100 pb-3 justify-between">
+                                    <span class="info-label">Stay</span>
+                                    <span class="text-lux-grey">溫暖的家</span>
+                                </li>
+                                <li class="flex border-b border-gray-100 pb-3 justify-between">
+                                    <span class="info-label">Breakfast</span>
+                                    <span class="text-lux-dark font-medium text-right flex items-center gap-1">
+                                        柳橋連合市場
+                                        <a href="https://www.google.com/maps/search/?api=1&query=Yanagibashi+Rengo+Market" target="_blank" class="map-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3 text-lux-gold/80"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg></a>
+                                    </span>
+                                </li>
+                                <li class="flex border-b border-gray-100 pb-3 justify-between">
+                                    <span class="info-label">Lunch</span>
+                                    <span class="text-lux-dark font-medium text-right flex items-center gap-1">
+                                        博多拉麵
+                                        <a href="https://www.google.com/maps/search/?api=1&query=Ichiran+Main+Office" target="_blank" class="map-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3 text-lux-gold/80"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg></a>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Right: Visual D5 -->
+                    <div class="order-1 md:order-2 relative px-2 md:px-0">
+                        <div class="image-container aspect-[3/4] shadow-soft bg-gray-100">
+                            <img src="https://www.crossroadfukuoka.jp/storage/tourism_attractions/12510/responsive_images/PwYpay0vAJ0AD9cMhoaSz6udl11BU0o726z5nFcz__1673_1115.jpg" alt="Fukuoka City View" class="w-full h-full object-cover transition duration-[1.5s] group-hover:scale-105">
+                        </div>
+                        <div class="absolute bottom-6 right-4 md:bottom-12 md:right-6 text-white text-right drop-shadow-md">
+                            <p class="font-display text-4xl md:text-5xl">Bon Voyage</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+             <!-- BUDGET SECTION -->
+            <section id="budget" class="mb-24 relative scroll-mt-32">
+                <div class="text-center mb-16">
+                    <h2 class="font-display text-3xl md:text-4xl text-lux-dark mb-4">Travel Budget</h2>
+                    <p class="font-serif text-lux-grey text-sm md:text-base italic">Estimated Costs per Person (NT$)</p>
+                    <div class="w-16 h-[1px] bg-lux-gold mx-auto mt-6"></div>
+                </div>
+
+                <div class="max-w-3xl mx-auto bg-white shadow-ticket border border-lux-gold/10 relative overflow-hidden rounded-sm">
+                    <!-- Top Decor -->
+                    <div class="h-2 bg-lux-gold w-full"></div>
+                    
+                    <div class="p-6 md:p-12">
+                        <div class="flex justify-between items-end mb-10 border-b border-lux-gold/20 pb-6">
+                            <div>
+                                <h3 class="font-display text-2xl text-lux-dark">FUKUOKA 2026</h3>
+                                <p class="text-xs text-lux-grey tracking-widest mt-1 uppercase">Trip Estimate Breakdown</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-[10px] font-bold text-lux-gold uppercase tracking-widest mb-1">Currency</p>
+                                <p class="font-sans font-bold text-lux-dark">TWD</p>
+                            </div>
+                        </div>
+
+                        <!-- Fixed Costs -->
+                        <div class="mb-8 bg-lux-bg/30 p-4 rounded border border-lux-gold/5">
+                            <h4 class="text-xs font-bold text-lux-grey tracking-widest uppercase mb-4 pl-2 border-l-2 border-lux-gold">Fixed Costs (固定支出)</h4>
+                            <div class="flex justify-between items-center py-3 border-b border-dashed border-gray-200">
+                                <div>
+                                    <p class="text-lux-dark font-medium">Flight & Hotel Package</p>
+                                    <p class="text-[10px] text-lux-grey mt-1 leading-relaxed">
+                                        含機票、住宿(4晚)、日田一泊二食(會席料理)<br>
+                                        日本網卡(5日2GB)、旅平險(實支實付型)
+                                    </p>
+                                </div>
+                                <div class="font-mono text-lux-dark font-bold">23,750</div>
+                            </div>
+                        </div>
+
+                        <!-- Variable Costs -->
+                        <div class="mb-10 p-4">
+                            <h4 class="text-xs font-bold text-lux-grey tracking-widest uppercase mb-4 pl-2 border-l-2 border-lux-gold">Estimated Variable (預估浮動支出)</h4>
+                            
+                            <!-- Dining -->
+                            <div class="flex justify-between items-start py-3 border-b border-dashed border-gray-200">
+                                <div>
+                                    <p class="text-lux-dark font-medium">Dining & Food (餐飲)</p>
+                                    <div class="text-[10px] text-lux-grey mt-1 space-y-0.5">
+                                        <p>• 石原牛午間套餐: ~550 (CP值最高!)</p>
+                                        <p>• 柳川鰻魚飯: ~1,100</p>
+                                        <p>• 由布院豐後牛: ~700</p>
+                                        <p>• 晚餐(牛腸鍋/坐離宮): ~1,500</p>
+                                        <p>• 其他餐食/屋台/點心: ~4,150</p>
+                                    </div>
+                                </div>
+                                <div class="font-mono text-lux-dark">8,000</div>
+                            </div>
+
+                            <!-- Transport: Rental Car -->
+                            <div class="flex justify-between items-center py-3 border-b border-dashed border-gray-200">
+                                <div>
+                                    <p class="text-lux-dark font-medium">Car Rental Split (租車分攤)</p>
+                                    <p class="text-[10px] text-lux-grey mt-0.5">3天租車費 + 油資 + KEP (4人分攤)</p>
+                                </div>
+                                <div class="font-mono text-lux-dark">3,300</div>
+                            </div>
+
+                            <!-- Transport: Taxi -->
+                            <div class="flex justify-between items-center py-3 border-b border-dashed border-gray-200">
+                                <div>
+                                    <p class="text-lux-dark font-medium">Taxi Split (計程車分攤)</p>
+                                    <p class="text-[10px] text-lux-grey mt-0.5">機場接送 + 啤酒廠往返 + 市區短程</p>
+                                </div>
+                                <div class="font-mono text-lux-dark">700</div>
+                            </div>
+
+                             <div class="flex justify-between items-center py-3 border-b border-dashed border-gray-200">
+                                <div>
+                                    <p class="text-lux-dark font-medium">Misc & Tickets (雜支)</p>
+                                    <p class="text-[10px] text-lux-grey mt-0.5">柳川遊船、門票、飲料等</p>
+                                </div>
+                                <div class="font-mono text-lux-dark">1,500</div>
+                            </div>
+                        </div>
+
+                        <!-- Total -->
+                        <div class="bg-lux-dark text-white p-6 flex justify-between items-center rounded-sm shadow-md">
+                            <div>
+                                <p class="font-display text-xl">Total Estimate</p>
+                                <p class="text-[10px] text-lux-gold tracking-wider uppercase mt-1">Per Person (Excl. Shopping)</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-display text-3xl text-lux-gold">37,250</p>
+                                <p class="text-xs text-white/60 font-sans">TWD</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 text-center">
+                            <p class="text-[10px] text-lux-grey italic">* 此預算為預估值，實際花費依匯率(0.22估算)與個人消費習慣而定。</p>
+                        </div>
+
+                    </div>
+                    <!-- Bottom Decor -->
+                     <div class="h-2 bg-gradient-to-r from-lux-gold/20 via-lux-gold/60 to-lux-gold/20 w-full"></div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-[#E6DCCF] py-24 text-center">
+        <div class="font-display text-3xl text-lux-dark mb-6 tracking-widest">FUKUOKA 2026</div>
+        <p class="font-serif text-base text-lux-grey italic mb-10 font-light">A Journey of Cherry Blossoms, Onsen, and Family Love.</p>
+        <div class="w-12 h-[1px] bg-lux-gold mx-auto"></div>
+        <p class="text-[9px] text-gray-400 mt-10 tracking-[0.3em] uppercase">Designed for the best family trip</p>
+    </footer>
+
+    <script>
+        // Simple script to handle smooth highlighting of navbar
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('nav div a');
+            const backToTopBtn = document.getElementById('backToTop');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                
+                // Back to Top Button Logic
+                if (window.scrollY > 500) {
+                    backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+                } else {
+                    backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+                }
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (pageYOffset >= (sectionTop - 400)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('text-lux-gold', 'font-bold');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('text-lux-gold', 'font-bold');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
